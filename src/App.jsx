@@ -27,25 +27,69 @@ class App extends Component {
   console.log("componentDidMount <App />");
   setTimeout(() => {
     console.log("Simulating incoming message");
+//connecting to websockets
+      this.socket = new WebSocket("ws://localhost:3001");
+//on onload, send notification of connection
+      this.socket.onopen = event => {
+        // this.socket.send("sending connection!");
+        console.log("connected");
+      };
+
+this.socket.addEventListener('message', event => {
+      let message = JSON.parse(event.data)
+    });
+
+// listen for messages
+//   const onKeyPress = event => {
+//     if (event.key == 'Enter') {
+//       const newestMessage = {
+//         username: "Bob",
+//         content: event.target.value
+//       };
+//       this.socket.send(JSON.stringify(newestMessage));
+//       console.log(newestMessage);
+//       const messages = this.state.messages.concat(newestMessage);
+//       this.setState({
+//         messages: messages
+//       });
+
+//     }
+// }
     // Add a new message to the list of messages in the data store
     const newMessage = {id: 3, username: "Michelle", content: "Hello there!"};
     const messages = this.state.messages.concat(newMessage)
     // Update the state of the app component.
     // Calling setState will trigger a call to render() in App and all child components.
-    this.setState({messages: messages})
-  }, 3000);
+    this.setState({messages: messages})}, 3000);
 }
 
 
-onKeyPress = event => {
-  if(event.key == 'Enter') {
-    console.log("hellp");
-    const newestMessage = {username:"Bob", content:event.target.value};
-    const messages = this.state.messages.concat(newestMessage);
-    this.setState({messages:messages});
+  onKeyPress = event => {
+    if (event.key == 'Enter') {
+      const newestMessage = {
+        username: "Bob",
+        content: event.target.value
+      };
+      console.log(newestMessage);
+      this.socket.send(JSON.stringify(newestMessage));
 
-  }
- }
+      const messages = this.state.messages.concat(newestMessage);
+      this.setState({
+        messages: messages
+      });
+
+    }
+}
+
+
+
+ //    this.socket.send("test");
+ //    const newestMessage = {username:"Bob", content:event.target.value};
+ //    const messages = this.state.messages.concat(newestMessage);
+ //    this.setState({messages:messages});
+ //    event.target.value = "";
+ //  }
+ // }
 
 
 
