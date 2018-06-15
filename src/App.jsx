@@ -8,50 +8,33 @@ class App extends Component {
     super(props);
     this.state = {
       loading: true,
-      currentUser: {name: "Bob"},
+      currentUser: {name: "Anonymous"},
       messages: [],
       numberOfUsers: 0
     };
   }
 
   componentDidMount() {
-    console.log("componentDidMount <App />");
-
-        console.log("Simulating incoming message");
-        //connecting to websockets
-        this.socket = new WebSocket("ws://localhost:3001");
-        //on onload, send notification of connection
-        this.socket.onopen = event => {
-          // this.socket.send("sending connection!");
-          console.log("connected");
-
-
-        };
-
-        this.socket.addEventListener('message', event => {
-            console.log(event)
-            const data = JSON.parse(event.data);
-            console.log(data)
-            if (data.type === "incomingMessage" || data.type === "incomingNotification") {
-              this.setState({
-              messages: [...this.state.messages, data]
-            })
-            }
-            else {
-               this.setState({
-              numberOfUsers: data
-            })
-            }
-
+    //connecting to websockets
+    this.socket = new WebSocket("ws://localhost:3001");
+    this.socket.onopen = event => {
+      console.log("connected");
+    };
+    this.socket.addEventListener('message', event => {
+      const data = JSON.parse(event.data);
+      if (data.type === "incomingMessage" || data.type === "incomingNotification") {
+        this.setState({
+          messages: [...this.state.messages, data]
         })
-        // console.log(this.state)
-    }
+      } else {
+        this.setState({
+          numberOfUsers: data
+        })
+      }
+    })
+  }
 
-
-
-
-
-  UserName = event => {
+  updateUserName = event => {
     const oldUser = this.state.currentUser.name;
     const nameObj = {
       name: event.target.value
@@ -59,9 +42,8 @@ class App extends Component {
     this.setState({
       currentUser: nameObj
     });
-
     const newUser = event.target.value;
-    if (oldUser!==newUser) {
+    if (oldUser !== newUser) {
       const UserNotification = {
         type: "postNotification",
         content: `${oldUser} has changed their name to ${newUser}`
@@ -70,8 +52,8 @@ class App extends Component {
     }
   }
 
-  onKeyPress = event => {
-   const currentuser = this.state.currentUser.name;
+  updateMessage = event => {
+    const currentuser = this.state.currentUser.name;
     if (event.key == 'Enter') {
       const newestMessage = {
         type: "postMessage",
@@ -79,17 +61,16 @@ class App extends Component {
         content: event.target.value
       };
       this.socket.send(JSON.stringify(newestMessage));
+      event.target.value = "";
     }
-
   }
-
 
   render() {
   return (
     <div>
     <NavBar numberOfUsers={this.state.numberOfUsers}/>
-    <MessageList messages={this.state.messages} currentUser={this.state.currentUser}/>
-    <ChatBar onKeyPress={this.onKeyPress} onChange={this.UserName} currentUser={this.state.currentUser.name} username={this.state.currentUser.name} />
+    <MessageList messages={this.state.messages}/>
+    <ChatBar updateMessage={this.updateMessage} updateUserName={this.updateUserName}/>
     </div>
     );
   }
