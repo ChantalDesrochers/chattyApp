@@ -9,16 +9,9 @@ This app allows users to send messages to others online, either anonymously or u
 Clone the boilerplate and create your own git repo.
 
 ### Screenshots
-[!Two people chatting]
+[!Two people chatting](https://github.com/ChantalDesrochers/chattyApp/blob/master/docs/ChattyApp-2-person-convo.png?raw=true)
 
-
-
-
-[!A group chat with name changes
-
-
-
-]
+[!A group chat with name changes](https://github.com/ChantalDesrochers/chattyApp/blob/master/docs/ChattyApp-group-convo.png?raw=true)
 
 ### Getting Started
 1. Fork this repository, then clone your fork of this respository
