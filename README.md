@@ -9,7 +9,7 @@ This app allows users to send messages to others online, either anonymously or u
 Clone the boilerplate and create your own git repo.
 
 ### Screenshots
-![Two people chatting](https://github.com/ChantalDesrochers/chattyApp/blob/master/docs/ChattyApp-2-person-convo.png?raw=true)
+![Three people chatting, 2 windows](https://github.com/ChantalDesrochers/chattyApp/blob/master/docs/ChattyApp-2-person-convo.png?raw=true)
 
 ![A group chat with name changes](https://github.com/ChantalDesrochers/chattyApp/blob/master/docs/ChattyApp-group-convo.png?raw=true)
 
