@@ -6,7 +6,6 @@ Chatty is a single page instant messaging app built using React, Express, Websoc
 ### Usage
 
 This app allows users to send messages to others online, either anonymously or using a chosen username. Users can update their username at any point and all users will be notified. Users are notified when new users join or leave the chat via a message in the navbar.
-Clone the boilerplate and create your own git repo.
 
 ### Screenshots
 ![Three people chatting, 2 windows](https://github.com/ChantalDesrochers/chattyApp/blob/master/docs/ChattyApp-2-person-convo.png?raw=true)
